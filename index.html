@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman-game</title>
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="./js.js"></script>
+
+</head>
+<body>
+    <div class="game">
+        <div class="game-attempts"></div>
+    
+        <div class="game-sentence"></div>
+    
+        <div class="game-letters"></div>
+    
+        <button type="button" class="button game-start">Losuj nowe hasło</button>
+    </div>
+    <dialog id="dialog-win">
+        <h2>Udało się!</h2>
+        <p>Zgadłeś hasło :)</p>
+    </dialog>
+
+    <dialog id="dialog-lose">
+        <h2>Przegrana!</h2>
+        <p>Niestety nie udało ci się odgadnąć hasła. :(</p>
+    </dialog>
+</body>
+</html>

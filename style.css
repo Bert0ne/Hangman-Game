@@ -1,0 +1,122 @@
+* {
+    box-sizing:border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: space-between;
+    min-height: 100vh;
+    margin: 0;
+}
+.game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.game-letters {
+    list-style-type:none;
+    margin:10px auto;
+    padding:0;
+    max-width:1200px;
+    text-align:center;
+}
+.game-letter {
+    --color: rgba(100,100,100,1);
+    display:inline-block;
+    width: 4rem;
+    height: 4rem;
+    margin:0.3rem;
+    cursor:pointer;
+    text-transform:uppercase;
+    font-size: 2rem;
+    border-radius: 4px;
+    font-family: sans-serif;
+    text-align:center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: 2px solid var(--color);
+    color: var(--color);
+}
+.game-letter:disabled {
+    --color: rgba(100,100,100,0.4);
+    cursor:default;
+}
+.game-letter:not(:disabled):hover {
+    --color: rgba(50, 50, 50, 0.8);
+    background: gold;
+}
+.game-sentence {
+    padding:0;
+    margin:0;
+    width:100%;
+    text-align:center;
+}
+.game-sentence-box {
+    text-transform: uppercase;
+    width: 5rem;
+    height: 5rem;
+    border-bottom: 3px solid #333;
+    margin: 1rem 0.5rem 2rem;
+    font-size: 3rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #333;
+    vertical-align: top;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-sentence-box-space {
+    border: 0;
+    background: none;
+    box-shadow: none;
+}
+.game-attempts {
+    margin:1rem 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background: #fff;
+    color:#333;
+    border:1px solid #ddd;
+}
+
+button.button,
+input[type=button].button,
+input[type=submit].button {
+    display: block;
+    max-width: 20em;
+    text-align: center;
+    padding: 1.3em 3em;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #FFF;
+    text-decoration: none;
+    margin: 2em auto;
+    background: tomato;
+    border-radius: 3em;
+    line-height: 1.1em;
+    text-shadow: none;
+    transition: 0.5s background-color, 0.5s box-shadow;
+    box-shadow: 0 2px 5px rgba(255, 99, 71, 0.4);
+    border:0;
+    cursor: pointer;
+}
+#dialog-lose {
+    color: red;
+    
+}
+#dialog-win {
+    color: green;
+}
