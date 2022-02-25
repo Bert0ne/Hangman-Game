@@ -1,3 +1,3 @@
 # Hangman Game
 
-Check it [here](https://bert0ne.github.io/Slider/)
+Check it [here](https://github.com/Bert0ne/Hangman-Game)
