@@ -1,13 +1,17 @@
-const game = {
-    currentSentence : null, //aktualnie pobrane hasło
-    currentSentenceLetters : null,
-    attempts : 5, //ile prób zostało dla aktualnej gry
-    elemSentence : document.querySelector(".game-sentence"), //element z hasłem do zgadnięcia
-    elemAttempts : document.querySelector(".game-attempts"), //element z liczba prob
-    elemLetters : document.querySelector(".game-letters"), //lista z literkami do klikania
-    dialogLose : document.getElementById('dialog-lose'),
-    dialogWin : document.getElementById('dialog-win'),
-    sentences : [ //hasła z których losujemy
+class Game {
+    constructor() {
+        this.initBoard()
+        document.querySelector(".game-start").addEventListener("click", () => game.startGame());
+    }
+    currentSentence = null //aktualnie pobrane hasło
+    currentSentenceLetters = null
+    attempts = 5 //ile prób zostało dla aktualnej gry
+    elemSentence = document.querySelector(".game-sentence") //element z hasłem do zgadnięcia
+    elemAttempts = document.querySelector(".game-attempts") //element z liczba prob
+    elemLetters = document.querySelector(".game-letters") //lista z literkami do klikania
+    dialogLose = document.getElementById('dialog-lose')
+    dialogWin = document.getElementById('dialog-win')
+    sentences = [ //hasła z których losujemy
         "Fantomas",
         "Super Szamson",
         "Hasło",
@@ -22,7 +26,7 @@ const game = {
         "Batman",
         "Spiderman",
         "Kapitan Ameryka"
-    ],
+    ]
 
     generateLetterButtons() {
         const alphabet = ["a","ą","b","c","ć","d","e","ę","f","g","h","i","j","k","l","ł","m","n","ń","o","ó","p","q","r","s","ś","t","u","v","w","x","y","z","ź","ż"];
@@ -35,16 +39,16 @@ const game = {
             button.innerText = letter;
             this.elemLetters.appendChild(button);
         });
-    },
+    }
 
     clearDialog() {
         this.dialogLose.close();
         this.dialogWin.close();
-    },
+    }
     
     isLetterExists() {
         return this.currentSentenceLetters.length;
-    },
+    }
 
     checkLettersInSentence(letter) {
         if (this.currentSentence.includes(letter)) { //jeżeli litera istnieje w haśle
@@ -72,7 +76,7 @@ const game = {
                 this.gameOver();
             }
         }
-    },
+    }
 
     bindEvents() {
         this.elemLetters.addEventListener("click", e => {
@@ -82,31 +86,31 @@ const game = {
                 e.target.disabled = true;
             }
         });
-    },
+    }
 
     enableLetters() {
         //pobieramy litery i robimy po nich pętlę włączając je
         const letters  = this.elemLetters.querySelectorAll(".game-letter");
         letters.forEach(letter => letter.disabled = false);
-    },
+    }
 
     disableLetters() {
         //pobieramy litery i robimy po nich pętlę wyłączając je
         const letters  = this.elemLetters.querySelectorAll(".game-letter");
         letters.forEach(letter => letter.disabled = true);
-    },
+    }
 
     gameOver() {
         // alert("Niestety nie udało ci się odgadnąć hasła. Ps: brzmi ono: \n\n" + this.currentSentence);
         this.dialogLose.show()
         this.disableLetters();
-    },
+    }
 
     gameComplete() {
         // alert("Udało ci się zgadnąć hasło :)");\
         this.dialogWin.show()
         this.disableLetters();
-    },
+    }
 
     initBoard() {
         this.generateLetterButtons();
@@ -114,11 +118,11 @@ const game = {
         this.disableLetters(); //przy stworzeniu planszy wyłączamy litery
         this.clearDialog(); 
 
-    },
+    }
 
     showAttempts() {
         this.elemAttempts.innerText = this.attempts;
-    },
+    }
     
     randomSentence() {
         const max = this.sentences.length-1;
@@ -138,7 +142,7 @@ const game = {
             }
             this.elemSentence.appendChild(div);
         }
-        )},
+        )}
     
 
     startGame() {
@@ -147,11 +151,10 @@ const game = {
         this.showAttempts(); //pokazuje liczbę prób
         this.enableLetters(); //włączamy litery
         this.clearDialog();
-    },
+    }
 
 
 }
 
 
-game.initBoard();
-document.querySelector(".game-start").addEventListener("click", () => game.startGame());
+const game = new Game();
