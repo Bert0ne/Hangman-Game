@@ -3,15 +3,15 @@ class Game {
         this.initBoard()
         document.querySelector(".game-start").addEventListener("click", () => game.startGame());
     }
-    currentSentence = null //aktualnie pobrane hasło
+    currentSentence = null //currently downloaded Sentence
     currentSentenceLetters = null
-    attempts = 5 //ile prób zostało dla aktualnej gry
-    elemSentence = document.querySelector(".game-sentence") //element z hasłem do zgadnięcia
-    elemAttempts = document.querySelector(".game-attempts") //element z liczba prob
-    elemLetters = document.querySelector(".game-letters") //lista z literkami do klikania
+    attempts = 5 //attempts are left for the current game
+    elemSentence = document.querySelector(".game-sentence") //item with sentence to guess
+    elemAttempts = document.querySelector(".game-attempts") //item with attempts number
+    elemLetters = document.querySelector(".game-letters") //a list with letters to click on
     dialogLose = document.getElementById('dialog-lose')
     dialogWin = document.getElementById('dialog-win')
-    sentences = [ //hasła z których losujemy
+    sentences = [ //slogans from which we draw
         "Fantomas",
         "Super Szamson",
         "Hasło",
@@ -51,28 +51,28 @@ class Game {
     }
 
     checkLettersInSentence(letter) {
-        if (this.currentSentence.includes(letter)) { //jeżeli litera istnieje w haśle
+        if (this.currentSentence.includes(letter)) { //if the letter exists in the password
             const lettersBox = this.elemSentence.querySelectorAll(".game-sentence-box");
 
             for (let i=0; i<this.currentSentence.length; i++) {
                 if (this.currentSentence[i] === letter) {
-                    lettersBox[i].innerText = letter; //wstawiamy w odpowiedni box wybraną literę
+                    lettersBox[i].innerText = letter; //insert the desired letter in the appropriate box
                 }
             }
 
 
-            //usuwamy trafioną literę z currentSentenceLetters
+            //remove the hit letter from currentSentenceLetters
             this.currentSentenceLetters = this.currentSentenceLetters.replace(new RegExp(letter, "g"), "");
 
-            //jeżeli już nie ma liter w powyższej zmiennej gracz wygrał
+            //if there are no more letters in the above variable the player has won
             if (!this.isLetterExists()) {
                 this.gameComplete();
             }
-        } else {  //nie ma takiej litery w haśle
+        } else {  //there is no such letter in the sentence
             this.attempts--;
             this.showAttempts();
 
-            if (this.attempts <= 0) { //jeżeli nie ma już prób...
+            if (this.attempts <= 0) { //if there are no more trials...
                 this.gameOver();
             }
         }
@@ -89,25 +89,23 @@ class Game {
     }
 
     enableLetters() {
-        //pobieramy litery i robimy po nich pętlę włączając je
+        //take the letters and loop around them to include them
         const letters  = this.elemLetters.querySelectorAll(".game-letter");
         letters.forEach(letter => letter.disabled = false);
     }
 
     disableLetters() {
-        //pobieramy litery i robimy po nich pętlę wyłączając je
+        //take the letters and loop around them, turning them off
         const letters  = this.elemLetters.querySelectorAll(".game-letter");
         letters.forEach(letter => letter.disabled = true);
     }
 
     gameOver() {
-        // alert("Niestety nie udało ci się odgadnąć hasła. Ps: brzmi ono: \n\n" + this.currentSentence);
         this.dialogLose.show()
         this.disableLetters();
     }
 
     gameComplete() {
-        // alert("Udało ci się zgadnąć hasło :)");\
         this.dialogWin.show()
         this.disableLetters();
     }
@@ -115,7 +113,7 @@ class Game {
     initBoard() {
         this.generateLetterButtons();
         this.bindEvents();
-        this.disableLetters(); //przy stworzeniu planszy wyłączamy litery
+        this.disableLetters(); //when creating a board, we turn off the letters
         this.clearDialog(); 
 
     }
@@ -131,7 +129,7 @@ class Game {
 
         this.currentSentence = this.sentences[rand].toUpperCase();
         this.currentSentenceLetters = this.currentSentence.replace(/ /g, "");
-        this.elemSentence.innerText = ''; //czyścimy listę
+        this.elemSentence.innerText = ''; //clear list
 
         const letters = this.currentSentence.split('');
         letters.forEach(letter => {
@@ -146,15 +144,11 @@ class Game {
     
 
     startGame() {
-        this.attempts = 5; //ile prób zostało dla aktualnej gry
-        this.randomSentence(); //losujemy hasło do zgadnięcia
-        this.showAttempts(); //pokazuje liczbę prób
-        this.enableLetters(); //włączamy litery
+        this.attempts = 5; //how many attempts are left for the current game
+        this.randomSentence(); //draw a password to guess
+        this.showAttempts(); //show the number of attempts
+        this.enableLetters(); //enable letters
         this.clearDialog();
     }
-
-
 }
-
-
 const game = new Game();
